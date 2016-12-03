@@ -26,7 +26,6 @@ public class ScriptGenerator {
 		ScriptGenerator generator = new ScriptGenerator();
 
 		String[] pathOfJavaFiles = generator.getFileNames(folder);
-		// analysis.countNumberOfClasses(pathOfJavaFiles);
 		Map<String, String> details = generator.scriptGenerator(pathOfJavaFiles);
 		for (String string : details.keySet()) {
 
@@ -75,15 +74,11 @@ public class ScriptGenerator {
 				String[] strings = string.split("\\W");
 				list.add(strings[strings.length - 2]);
 
-				// System.out.println(string);
-
 			}
 		}
 
 		for (String path : pathofFiles) {
 			if (path != null) {
-				// System.out.println(list);
-				// pathOfHomepage="C:/Users/Gamer/Downloads/space-science/upload/index.html";
 				String[] string = path.split("\\W");
 				String name = string[string.length - 2];
 				String element;
@@ -133,7 +128,6 @@ public class ScriptGenerator {
 								stringBuffer.append("&lt;tr&gt;&lt;td&gt;clickAndWait&lt;/td&gt;&lt;td&gt;link=");
 								String[] split = matcher.group(1).split("</a>");
 								stringBuffer.append(split[0]);
-								// stringBuffer.append(matcher.group(1));
 								stringBuffer.append("&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;");
 							}
 						}
@@ -145,12 +139,10 @@ public class ScriptGenerator {
 						.replaceAll("</a>", "");
 
 				fileReader.close();
-				// System.out.println("Contents of file:");
 				fileAndScript.put(element, seleniumScript);
 			}
 		}
 
 		return fileAndScript;
-		// return seleniumScript;
 	}
 }
