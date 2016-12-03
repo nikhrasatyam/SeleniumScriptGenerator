@@ -21,26 +21,23 @@ public class ScriptGenerator {
 
 	public static void main(String[] args) throws IOException {
 		System.out.println("Enter the path of input file");
-		String inputFilePath=sc.nextLine();
+		String inputFilePath = sc.nextLine();
 		File folder = new File(inputFilePath);
 		ScriptGenerator generator = new ScriptGenerator();
 
 		String[] pathOfJavaFiles = generator.getFileNames(folder);
 		// analysis.countNumberOfClasses(pathOfJavaFiles);
-		Map<String,String> details=generator.scriptGenerator(pathOfJavaFiles);
+		Map<String, String> details = generator.scriptGenerator(pathOfJavaFiles);
 		for (String string : details.keySet()) {
-			
-			String filename = folder+"/testScripts/"+"test"+string+".html";
+
+			String filename = folder + "/testScripts/" + "test" + string + ".html";
 			File file2 = new File(filename);
 			FileWriter fileWriter = new FileWriter(file2);
 			fileWriter.write(details.get(string));
 			fileWriter.flush();
 			fileWriter.close();
 
-			
 		}
-		
-	
 
 	}
 
@@ -48,7 +45,6 @@ public class ScriptGenerator {
 
 		File[] listOfFiles = folderPath.listFiles();
 		String line;
-		// System.out.println("Total Number of Java Files are:");
 		int javaFilesCount = 0;
 		String[] pathOfFiles = new String[listOfFiles.length];
 
@@ -57,7 +53,6 @@ public class ScriptGenerator {
 				if (file.getName().contains("html")) {
 					pathOfFiles[javaFilesCount] = file.getPath();
 					javaFilesCount++;
-					// String path = file.getPath();
 
 					System.out.println(file.getName() + " " + file.getPath());
 
@@ -68,9 +63,9 @@ public class ScriptGenerator {
 		return pathOfFiles;
 	}
 
-	public Map<String,String> scriptGenerator(String[] pathofFiles) throws IOException {
+	public Map<String, String> scriptGenerator(String[] pathofFiles) throws IOException {
 		String pathOfHomepage = null;
-		Map<String,String> fileAndScript=new HashMap<String,String>();
+		Map<String, String> fileAndScript = new HashMap<String, String>();
 		List<String> list = new ArrayList<String>();
 		for (String string : pathofFiles) {
 			if (string != null) {
@@ -84,23 +79,18 @@ public class ScriptGenerator {
 
 			}
 		}
-		
-		for(String path:pathofFiles)
-		{
-			if(path!=null)
-			{
-				//System.out.println(list);
-				//pathOfHomepage="C:/Users/Gamer/Downloads/space-science/upload/index.html";
-				String[] string=path.split("\\W");
-				String name=string[string.length-2];
+
+		for (String path : pathofFiles) {
+			if (path != null) {
+				// System.out.println(list);
+				// pathOfHomepage="C:/Users/Gamer/Downloads/space-science/upload/index.html";
+				String[] string = path.split("\\W");
+				String name = string[string.length - 2];
 				String element;
-				if(name.equals("index"))
-				{
-					element="Home";
-				}
-				else
-				{
-					 element=Character.toUpperCase(name.charAt(0))+name.substring(1);
+				if (name.equals("index")) {
+					element = "Home";
+				} else {
+					element = Character.toUpperCase(name.charAt(0)) + name.substring(1);
 				}
 				File file = new File(pathOfHomepage);
 				FileReader fileReader = new FileReader(file);
@@ -109,7 +99,10 @@ public class ScriptGenerator {
 				Pattern pattern = Pattern.compile("\">+(.+)+<");
 				Pattern pattern1 = Pattern.compile("href=\"(.+).html.+");
 				String line;
-				String begining = "&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;&gt;&lt;head profile=&quot;http://selenium-ide.openqa.org/profiles/test-case&quot;&gt;&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;&lt;link rel=&quot;selenium.base&quot; href=&quot;https://login.live.com/&quot; /&gt;&lt;title&gt;"+"test"+element+"&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;table cellpadding=&quot;1&quot; cellspacing=&quot;1&quot; border=&quot;1&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;td rowspan=&quot;1&quot; colspan=&quot;3&quot;&gt;selenium&lt;/td&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;open&lt;/td&gt;&lt;td&gt;file:///"+path+"&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;";
+				String begining = "&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;&gt;&lt;head profile=&quot;http://selenium-ide.openqa.org/profiles/test-case&quot;&gt;&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;&lt;link rel=&quot;selenium.base&quot; href=&quot;https://login.live.com/&quot; /&gt;&lt;title&gt;"
+						+ "test" + element
+						+ "&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;table cellpadding=&quot;1&quot; cellspacing=&quot;1&quot; border=&quot;1&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;td rowspan=&quot;1&quot; colspan=&quot;3&quot;&gt;selenium&lt;/td&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;open&lt;/td&gt;&lt;td&gt;file:///"
+						+ path + "&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;";
 				// String fin=sdsd.replaceAll("&lt;", "<");
 				stringBuffer.append(begining);
 				stringBuffer.append("\n");
@@ -138,9 +131,9 @@ public class ScriptGenerator {
 								stringBuffer.append(element);
 								stringBuffer.append("&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;");
 								stringBuffer.append("&lt;tr&gt;&lt;td&gt;clickAndWait&lt;/td&gt;&lt;td&gt;link=");
-								String[] split=matcher.group(1).split("</a>");
+								String[] split = matcher.group(1).split("</a>");
 								stringBuffer.append(split[0]);
-								//stringBuffer.append(matcher.group(1));
+								// stringBuffer.append(matcher.group(1));
 								stringBuffer.append("&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;");
 							}
 						}
@@ -148,15 +141,16 @@ public class ScriptGenerator {
 				}
 				stringBuffer.append("&lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;");
 				String seleniumScript = stringBuffer.toString().replaceAll("&lt;", "<").replaceAll("&gt;", ">")
-						.replaceAll("&quot", "\"").replaceAll("<span>", "").replaceAll("</span>", "").replaceAll("</a>", "");
-			
+						.replaceAll("&quot", "\"").replaceAll("<span>", "").replaceAll("</span>", "")
+						.replaceAll("</a>", "");
+
 				fileReader.close();
 				// System.out.println("Contents of file:");
 				fileAndScript.put(element, seleniumScript);
 			}
 		}
-		
+
 		return fileAndScript;
-		//return seleniumScript;
+		// return seleniumScript;
 	}
 }
